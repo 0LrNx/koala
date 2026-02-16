@@ -44,4 +44,20 @@ def init_db():
     except sqlite3.OperationalError:
         pass  # La colonne existe déjà
 
+    # Table pour les matchs esport
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS esport_matches (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        match_id INTEGER UNIQUE,
+        team_name TEXT,
+        opponent_name TEXT,
+        game TEXT,
+        scheduled_at TEXT,
+        status TEXT,
+        notified_upcoming INTEGER DEFAULT 0,
+        notified_result INTEGER DEFAULT 0,
+        result TEXT
+    )
+    """)
+
     conn.commit()

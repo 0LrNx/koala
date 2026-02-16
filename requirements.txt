@@ -3,3 +3,6 @@ ics
 requests
 APScheduler
 python-dotenv
+feedparser
+beautifulsoup4
+lxml
