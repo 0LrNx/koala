@@ -16,7 +16,6 @@ INTERVALS = [1, 3, 7, 21]
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 DISCORD_CHANNEL_ID = int(os.getenv('DISCORD_CHANNEL_ID'))
 
-# Monitoring RSS - Channel dédié pour les alertes de sécurité
 MONITORING_CHANNEL_ID = int(os.getenv('MONITORING_CHANNEL_ID', os.getenv('DISCORD_CHANNEL_ID')))
 
 RSS_FEEDS = [
