@@ -24,7 +24,30 @@ jobs:
         fi
         .venv/bin/pip install -r requirements.txt
     
-    - name: 🔄 Restart bot service
+    - name: 🔄 Setup and restart bot service
       run: |
+        cd ~/koala
+        if [ ! -f /etc/systemd/system/koala-bot.service ]; then
+          echo "Creating systemd service..."
+          sudo tee /etc/systemd/system/koala-bot.service > /dev/null << EOF
+        [Unit]
+        Description=Koala Discord Bot
+        After=network.target
+        
+        [Service]
+        Type=simple
+        User=$USER
+        WorkingDirectory=$HOME/koala
+        Environment="PATH=$HOME/koala/.venv/bin"
+        ExecStart=$HOME/koala/.venv/bin/python $HOME/koala/main.py
+        Restart=always
+        RestartSec=10
+        
+        [Install]
+        WantedBy=multi-user.target
+        EOF
+          sudo systemctl daemon-reload
+          sudo systemctl enable koala-bot
+        fi
         sudo systemctl restart koala-bot
         echo "✅ Bot déployé et redémarré avec succès"
