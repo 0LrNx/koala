@@ -9,6 +9,8 @@ from src.commands.esport import setup_commands as setup_esport_commands, setup_t
 from src.commands.monitoring import setup_tasks as setup_monitoring_tasks
 
 intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
