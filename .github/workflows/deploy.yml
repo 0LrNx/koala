@@ -18,8 +18,7 @@ jobs:
     - name: 📦 Install dependencies
       run: |
         cd ~/koala-bot
-        source .venv/bin/activate
-        pip install -r requirements.txt
+        .venv/bin/pip install -r requirements.txt
     
     - name: 🔄 Restart bot service
       run: |
