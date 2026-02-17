@@ -1,0 +1,26 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Deploy to Raspberry Pi
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.RASPBERRY_HOST }}
+        username: ${{ secrets.RASPBERRY_USER }}
+        key: ${{ secrets.RASPBERRY_SSH_KEY }}
+        port: ${{ secrets.RASPBERRY_PORT || 22 }}
+        script: |
+          cd ~/koala-bot
+          git pull origin main
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          sudo systemctl restart koala-bot
+          echo "✅ Bot déployé et redémarré avec succès"
