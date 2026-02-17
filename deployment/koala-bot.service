@@ -1,0 +1,17 @@
+[Unit]
+Description=Koala Discord Bot
+After=network.target
+
+[Service]
+Type=simple
+User=fiss
+WorkingDirectory=/home/fiss/koala-bot
+Environment="PATH=/home/fiss/koala-bot/.venv/bin"
+ExecStart=/home/fiss/koala-bot/.venv/bin/python /home/fiss/koala-bot/main.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
