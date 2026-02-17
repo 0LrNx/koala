@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from config import DISCORD_TOKEN
 from src.database.connection import init_db
-from src.services.ics_sync import sync_ics
+# from src.services.ics_sync import sync_ics 
 from src.commands.ebbinghaus import setup_commands as setup_ebbinghaus_commands, setup_tasks
 from src.commands.esport import setup_commands as setup_esport_commands, setup_tasks as setup_esport_tasks
 from src.commands.monitoring import setup_tasks as setup_monitoring_tasks
