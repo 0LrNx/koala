@@ -7,20 +7,21 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
-    - name: 🚀 Deploy to Raspberry Pi
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.RASPBERRY_HOST }}
-        username: ${{ secrets.RASPBERRY_USER }}
-        key: ${{ secrets.RASPBERRY_SSH_KEY }}
-        port: ${{ secrets.RASPBERRY_PORT || 22 }}
-        script: |
-          cd ~/koala-bot
-          git pull origin main
-          source .venv/bin/activate
-          pip install -r requirements.txt
-          sudo systemctl restart koala-bot
-          echo "✅ Bot déployé et redémarré avec succès"
+    - name: 🔄 Pull latest changes
+      run: |
+        cd ~/koala-bot
+        git pull origin main
+    
+    - name: 📦 Install dependencies
+      run: |
+        cd ~/koala-bot
+        source .venv/bin/activate
+        pip install -r requirements.txt
+    
+    - name: 🔄 Restart bot service
+      run: |
+        sudo systemctl restart koala-bot
+        echo "✅ Bot déployé et redémarré avec succès"
